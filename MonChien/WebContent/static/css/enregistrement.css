@@ -1,0 +1,49 @@
+h1{
+    font-size: 26px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    position: relative;
+    text-align: center;
+}
+.main{
+    margin-top: 0%;
+    margin-bottom: 0%;
+    margin-left: 35%;
+    margin-right: 35%;
+    background-color: #F8F8F8;
+}
+#logo img{
+   width: 100%;
+}
+header .entete{
+
+    color: #F6F6F6;
+    font-size: 48px;
+    background-color: #696969;
+    padding-top: 1px;
+    padding-left: 30px;
+    padding-bottom: 1px;
+}
+.Nam{
+    font-size: 24px;
+    font-weight: bold;
+}
+.pro{
+    font-size: 20px;
+    opacity: 0.5;
+}
+tr, td{
+    background-color: rgb(255, 255, 255);
+    width: 80%;
+    padding: 3%;
+}
+.prec{
+    position: absolute;
+    margin-top: 5%;
+    margin-left: 5%;
+}
+.corb{
+    margin-left: 20%;
+    position: absolute;
+    padding-right: 3ch;
+}
