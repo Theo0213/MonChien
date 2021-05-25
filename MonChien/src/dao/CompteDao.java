@@ -41,6 +41,8 @@ public class CompteDao {
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
+		} catch(NullPointerException f) {
+			return null;
 		}
 
 		return null;

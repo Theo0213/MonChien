@@ -50,6 +50,60 @@ public class ChienDao {
 		return chiens;
 
 	}
+	
+	public List<Chien> getAllDisponible() {
+		List<Chien> chiens = new ArrayList<Chien>();
+
+		Statement statement;
+		try {
+			statement = ConnexionBdd.getConnection().createStatement();
+			ResultSet resultSet = statement.executeQuery(
+					"select c.id,c.numero_puce,c.nom,c.couleur,c.date_naissance, c.id_race from chien c left join adoption a on c.id =a.id_chien where a.id_chien is  null;");
+			while (resultSet.next()) {
+				int id = resultSet.getInt("id");
+				int numeroPuce = resultSet.getInt("numero_puce");
+				String nom = resultSet.getString("nom");
+				String couleur = resultSet.getString("couleur");
+				Date dateNaissance = resultSet.getDate("date_naissance");
+				int idRace = resultSet.getInt("id_race");
+
+				chiens.add(new Chien(id, numeroPuce, nom, couleur, dateNaissance, idRace));
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		return chiens;
+
+	}
+	
+	public List<Chien> getAllEnCours() {
+		List<Chien> chiens = new ArrayList<Chien>();
+
+		Statement statement;
+		try {
+			statement = ConnexionBdd.getConnection().createStatement();
+			ResultSet resultSet = statement.executeQuery(
+					"SELECT c.id,c.numero_puce,c.nom,c.couleur,c.date_naissance, c.id_race FROM chien c, adoption a where c.id = a.id_chien and a.id_etat_adoption=2;");
+			while (resultSet.next()) {
+				int id = resultSet.getInt("id");
+				int numeroPuce = resultSet.getInt("numero_puce");
+				String nom = resultSet.getString("nom");
+				String couleur = resultSet.getString("couleur");
+				Date dateNaissance = resultSet.getDate("date_naissance");
+				int idRace = resultSet.getInt("id_race");
+
+				chiens.add(new Chien(id, numeroPuce, nom, couleur, dateNaissance, idRace));
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		return chiens;
+
+	}
 
 	public Chien getById(Integer id) {
 
@@ -164,6 +218,26 @@ public class ChienDao {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
+	}
+	
+	
+	public Boolean isAdopte(Integer id) {
+		PreparedStatement statement;
+		String requete= "select exists (select * from adoption a where a.id_chien = ? and a.id_etat_adoption = 3) as est_adopte";
+		try {
+			statement = ConnexionBdd.getConnection().prepareStatement(requete);
+			statement.setInt(1, id);
+			ResultSet resultSet = statement.executeQuery();
+			while (resultSet.next()) {
+				return resultSet.getBoolean("est_adopte");
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+
+		return false;
+		
+
 	}
 
 }

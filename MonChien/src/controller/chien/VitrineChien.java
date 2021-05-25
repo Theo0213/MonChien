@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import dao.ChienDao;
+import dao.CompteDao;
 import model.Chien;
 
 /**
@@ -36,11 +37,21 @@ public class VitrineChien extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		List<Chien> chiens = ChienDao.getInstance().getAll();
+		List<Chien> chiens = ChienDao.getInstance().getAllDisponible();
 		request.setAttribute("chiens", chiens);
+		@SuppressWarnings("deprecation")
 		String email = (String) request.getSession().getValue("email");
+		@SuppressWarnings("deprecation")
+		String password = (String) request.getSession().getValue("mot_de_passe");
 		request.setAttribute("email", email);
-		request.getRequestDispatcher("/jsp/vitrine_chien.jsp").forward(request, response);
+		
+		if(CompteDao.getInstance().login(email, password)!=null && CompteDao.getInstance().login(email, password).getRole().equals("client")) {
+			request.getRequestDispatcher("/jsp/vitrine_chien.jsp").forward(request, response);
+		}else {
+			request.getRequestDispatcher("/jsp/page_erreur.jsp").forward(request, response);
+		}
+		
+		
 
 	}
 

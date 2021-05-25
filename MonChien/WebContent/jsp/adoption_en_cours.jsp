@@ -1,3 +1,5 @@
+<%@page import="model.Client"%>
+<%@page import="dao.ClientDao"%>
 <%@page import="dao.ChienDao"%>
 <%@page import="model.Chien"%>
 <%@page import="java.util.List"%>
@@ -15,7 +17,7 @@
 <html>
 <head>
 <meta charset="ISO-8859-1">
-<title>Liste de Chiens</title>
+<title>En cours</title>
 </head>
 <body>
 	<%
@@ -23,7 +25,7 @@
 	%>
 		<div
 			style="color: #F6F6F6; font-size: 48px; background-color: #696969; padding-top: 1px; padding-left: 30px; padding-bottom: 1px">
-			<p>Espace Client</p>
+			<p>Adoption(s) en cours</p>
 		</div>
 	<p>Vous êtes connecté(e) avec l'adresse : <%=email %></p>
 	
@@ -39,6 +41,7 @@
 				<th>Couleur</th>
 				<th>Date de naissance</th>
 				<th>Race</th>
+				<th>Futur Maitre</th>
 			</tr>
 		</thead>
 		<tbody>
@@ -48,14 +51,17 @@
 
 
 			<tr>
-				<td><a
-					href="<%=getServletContext().getContextPath()%>/adoption_chien?id_chien=<%=chien.getId()%>"><%=chien.getId()%></a></td>
+				<td><%=chien.getId()%></td>
 				<td><%=chien.getNumeroPuce()%></td>
 				<td><%=chien.getNom()%></td>
 				<td><%=chien.getCouleur()%></td>
 				<td><%=chien.getDateNaissance()%></td>
-				
 				<td><%=ChienDao.getInstance().getDescriptionRace(chien)%></td>
+				<td><%Client client = new Client()%></td>
+				<td><%client = ClientDao.getInstance().getClientEnCours(chien.getId());%></td>
+				<td><%=client.getNom()%> <%=client.getPrenom()%></td>
+				
+				
 
 			</tr>
 			<%

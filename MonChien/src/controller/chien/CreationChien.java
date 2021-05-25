@@ -1,9 +1,11 @@
 package controller.chien;
 
 import java.io.IOException;
+import java.security.Timestamp;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -14,8 +16,10 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import dao.AdoptionDao;
 import dao.ChienDao;
 import dao.RaceDao;
+import model.Adoption;
 import model.Chien;
 import model.Race;
 
@@ -82,6 +86,10 @@ public class CreationChien extends HttpServlet {
 		ChienDao chienDao = ChienDao.getInstance();
 
 		nvChien = chienDao.save(nvChien);
+
+		
+		
+		
 
 		request.getRequestDispatcher("/liste_chien").forward(request, response);
 

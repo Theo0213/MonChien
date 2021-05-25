@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import dao.ChienDao;
+import dao.CompteDao;
 import model.Chien;
 
 /**
@@ -38,9 +39,19 @@ public class ListeChien extends HttpServlet {
 			throws ServletException, IOException {
 		List<Chien> chiens = ChienDao.getInstance().getAll();
 		request.setAttribute("chiens", chiens);
+
 		String email = (String) request.getSession().getValue("email");
+
+		String password = (String) request.getSession().getValue("mot_de_passe");
 		request.setAttribute("email", email);
-		request.getRequestDispatcher("/jsp/liste_chien.jsp").forward(request, response);
+		CompteDao compteInstance = CompteDao.getInstance();
+		
+		if(compteInstance.login(email, password)!=null && compteInstance.login(email, password).getRole().equals("conseiller")) {
+			request.getRequestDispatcher("/jsp/liste_chien.jsp").forward(request, response);
+		}else {
+			request.getRequestDispatcher("/jsp/page_erreur.jsp").forward(request, response);
+		}
+		
 
 	}
 

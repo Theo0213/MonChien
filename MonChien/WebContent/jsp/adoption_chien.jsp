@@ -30,7 +30,7 @@
 		<li>Date de naissance : <%=p.getDateNaissance()%></li>
 		<li>Race : <%=ChienDao.getInstance().getDescriptionRace(p)%></li>
 	</ul>
-	<a href="<%=getServletContext().getContextPath()%>/vitrine_chien">Adopter</a>
+	<a href="<%=getServletContext().getContextPath()%>/adoption_chien_validation?id_chien=<%=p.getId()%>">Adopter</a>
 
 </body>
 

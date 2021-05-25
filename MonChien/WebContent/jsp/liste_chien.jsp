@@ -18,6 +18,11 @@
 		if (chiens != null && chiens.size() > 0) {
 	%>
 	
+	<div
+			style="color: #F6F6F6; font-size: 48px; background-color: #696969; padding-top: 1px; padding-left: 30px; padding-bottom: 1px">
+			<p>Espace Conseiller</p>
+		</div>
+	
 	<p>Vous êtes connecté(e) avec l'adresse : <%=email %></p>
 	
 	<table>
@@ -64,5 +69,9 @@
 	%>
 	<a href="<%=getServletContext().getContextPath()%>/ajouter_chien">Créer
 		un chien</a>
+	<div>
+		<a href="<%=getServletContext().getContextPath()%>/adoption_en_cours">Adoptions en Cours</a>
+	</div>	
+	
 </body>
 </html>

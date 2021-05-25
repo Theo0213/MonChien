@@ -49,6 +49,24 @@ public class ClientDao {
 		return clients;
 
 	}
+	
+	public Client getClientEnCours(Integer id) {
+
+		Statement statement;
+		try {
+			statement = ConnexionBdd.getConnection().createStatement();
+			ResultSet resultSet = statement.executeQuery(
+					"SELECT c2.id, c2.nom,c2.prenom,c2.date_naissance,c2.id_adresse FROM chien c, adoption a,client c2 where c.id = a.id_chien and a.id_client=c2.id and a.id_etat_adoption=2 and c.id ="+ id);
+			while (resultSet.next()) {
+				return new Client(resultSet.getInt("id"), resultSet.getString("nom"), resultSet.getString("prenom"),
+						resultSet.getDate("date_naissance"), resultSet.getInt("id_adresse"));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+
+		return null;
+	}
 
 	public Client getById(Integer id) {
 
