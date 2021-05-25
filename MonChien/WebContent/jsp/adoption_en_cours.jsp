@@ -1,3 +1,4 @@
+<%@page import="javax.xml.ws.handler.MessageContext.Scope"%>
 <%@page import="model.Client"%>
 <%@page import="dao.ClientDao"%>
 <%@page import="dao.ChienDao"%>
@@ -41,7 +42,7 @@
 				<th>Couleur</th>
 				<th>Date de naissance</th>
 				<th>Race</th>
-				<th>Futur Maitre</th>
+				<th>		Futur(s) Maitre(s)</th>
 			</tr>
 		</thead>
 		<tbody>
@@ -57,9 +58,21 @@
 				<td><%=chien.getCouleur()%></td>
 				<td><%=chien.getDateNaissance()%></td>
 				<td><%=ChienDao.getInstance().getDescriptionRace(chien)%></td>
-				<td><%Client client = new Client()%></td>
+				<td><%Client client = new Client();%></td>
 				<td><%client = ClientDao.getInstance().getClientEnCours(chien.getId());%></td>
 				<td><%=client.getNom()%> <%=client.getPrenom()%></td>
+				<td><form action="<%=getServletContext().getContextPath()%>/adoption_en_cours"
+		method="post">
+		<%
+	
+			session.setAttribute("id_chien",chien.getId());
+		    session.setAttribute("id_client",client.getId());
+			
+		%>	
+
+		<input	type="submit" value="Confirmer">
+	</form></td>
+				
 				
 				
 
@@ -79,7 +92,7 @@
 		}
 	%>
 	
-	<a href="<%=getServletContext().getContextPath()%>/page_login">Retour</a>
+	<a href="<%=getServletContext().getContextPath()%>/liste_chien">Retour</a>
 
 </body>
 </html>

@@ -10,6 +10,7 @@ import java.util.List;
 
 import model.Adoption;
 import model.Chien;
+import model.Client;
 
 
 public class AdoptionDao {
@@ -144,6 +145,23 @@ public class AdoptionDao {
 
 		}
 		return adoption;
+	}
+	
+	public void ComfirmerAdoption(Integer idChien, Integer idClient)  {
+		String requete = "update adoption set id_etat_adoption =3 where id_chien = ? and id_client = ?";
+
+		PreparedStatement statement;
+		try {
+			statement = ConnexionBdd.getConnection().prepareStatement(requete);
+			
+			statement.setInt(1, idChien);
+			statement.setInt(2, idClient);
+			
+			int nbreDeLignesAjour = statement.executeUpdate();
+			System.out.println(nbreDeLignesAjour + " ligne(s) ont été Maj ");
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
 	}
 	
 

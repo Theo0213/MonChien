@@ -69,6 +69,7 @@
 	%>
 	<a href="<%=getServletContext().getContextPath()%>/ajouter_chien">Créer
 		un chien</a>
+	<br><br><br>
 	<div>
 		<a href="<%=getServletContext().getContextPath()%>/adoption_en_cours">Adoptions en Cours</a>
 	</div>	
