@@ -7,6 +7,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import dao.CompteDao;
 import model.Compte;
@@ -51,17 +52,23 @@ public class PageLogin extends HttpServlet {
 		// trouver compte
 		Compte compteConnecte = new Compte();
 		compteConnecte = CompteDao.getInstance().login(email, password);
-		// trouver client
-		// Client clientConnecte = new Client();
-		// clientConnecte = CompteDao.getInstance().getClient(compteConnecte);
-		System.out.println(compteConnecte);
-		System.out.println(email);
-		System.out.println(password);
+
+		
+		HttpSession session = request.getSession();
+		session.setAttribute("email", email);
+		session.setAttribute("mot_de_passe", password);
+		
+		//debug
+		System.out.println("mail : " + session.getAttribute("email"));
+		System.out.println("mdp : " + session.getAttribute("mot_de_passe"));
 
 		// trouver role
 		try {
 			if (compteConnecte.getRole().equalsIgnoreCase("conseiller")) {
 				request.getRequestDispatcher("/liste_chien").forward(request, response);
+			}
+			if (compteConnecte.getRole().equalsIgnoreCase("client")) {
+				request.getRequestDispatcher("/vitrine_chien").forward(request, response);
 			}
 		}catch(NullPointerException e){
 			

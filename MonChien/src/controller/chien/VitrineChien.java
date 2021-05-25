@@ -18,14 +18,14 @@ import model.Chien;
 
 //http://localhost:8080/MonChien/liste_chien
 
-@WebServlet("/liste_chien")
-public class ListeChien extends HttpServlet {
+@WebServlet("/vitrine_chien")
+public class VitrineChien extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	/**
 	 * @see HttpServlet#HttpServlet()
 	 */
-	public ListeChien() {
+	public VitrineChien() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
@@ -40,7 +40,7 @@ public class ListeChien extends HttpServlet {
 		request.setAttribute("chiens", chiens);
 		String email = (String) request.getSession().getValue("email");
 		request.setAttribute("email", email);
-		request.getRequestDispatcher("/jsp/liste_chien.jsp").forward(request, response);
+		request.getRequestDispatcher("/jsp/vitrine_chien.jsp").forward(request, response);
 
 	}
 

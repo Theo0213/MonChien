@@ -3,6 +3,10 @@
 <%@page import="java.util.List"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
+	
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="toto"%>
+	
 <!DOCTYPE html>
 <%
 	List<Chien> chiens = (List) request.getAttribute("chiens");
@@ -39,15 +43,14 @@
 
 			<tr>
 				<td><a
-					href="<%=getServletContext().getContextPath()%>/details_chien?id_chien=<%=chien.getId()%>"><%=chien.getId()%></a></td>
+					href="<%=getServletContext().getContextPath()%>/adoption_chien?id_chien=<%=chien.getId()%>"><%=chien.getId()%></a></td>
 				<td><%=chien.getNumeroPuce()%></td>
 				<td><%=chien.getNom()%></td>
 				<td><%=chien.getCouleur()%></td>
 				<td><%=chien.getDateNaissance()%></td>
 				
 				<td><%=ChienDao.getInstance().getDescriptionRace(chien)%></td>
-				<td><a
-					href="<%=getServletContext().getContextPath()%>/modifier_chien?id_chien=<%=chien.getId()%>">Editer</a></td>
+
 			</tr>
 			<%
 				}
@@ -62,7 +65,6 @@
 	<%
 		}
 	%>
-	<a href="<%=getServletContext().getContextPath()%>/ajouter_chien">Créer
-		un chien</a>
+
 </body>
 </html>
