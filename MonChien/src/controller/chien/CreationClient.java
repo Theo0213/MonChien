@@ -13,7 +13,11 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import dao.ChienDao;
+import dao.ClientDao;
+import dao.CompteDao;
 import model.Chien;
+import model.Client;
+import model.Compte;
 
 /**
  * Servlet implementation class Acceuil
@@ -21,14 +25,14 @@ import model.Chien;
 
 //http://localhost:8080/MonChien/ajouter_chien
 
-@WebServlet("/ajouter_chien")
-public class CreationChien extends HttpServlet {
+@WebServlet("/enregistrement_client")
+public class CreationClient extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	/**
 	 * @see HttpServlet#HttpServlet()
 	 */
-	public CreationChien() {
+	public CreationClient() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
@@ -40,7 +44,7 @@ public class CreationChien extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
-		request.getRequestDispatcher("/jsp/ajouter_chien.jsp").forward(request, response);
+		request.getRequestDispatcher("/jsp/enregistrement_client.jsp").forward(request, response);
 
 	}
 
@@ -53,31 +57,40 @@ public class CreationChien extends HttpServlet {
 
 		DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
 
-		String numeroPuceStr = request.getParameter("numero_puce");
 		String nom = request.getParameter("nom");
-		String couleur = request.getParameter("couleur");
+		String prenom = request.getParameter("prenom");
 		String dateNaissanceStr = request.getParameter("date_naissance");
-		String idRaceStr = request.getParameter("id_race");
-
+		String idAdresseStr = request.getParameter("id_adresse");
+		String email = request.getParameter("email");
+		String password = request.getParameter("mot_de_passe");
+		
 		Date dateNaissance = null;
 		try {
 			dateNaissance = dateFormat.parse(dateNaissanceStr);
 		} catch (ParseException e) {
 
 		}
-		int numeroPuce = 0;
-		numeroPuce = Integer.valueOf(numeroPuceStr);
+		int idAdresse = 0;
+		idAdresse = Integer.valueOf(idAdresseStr);
+		
+		Client nvClient = new Client(null, nom, prenom, dateNaissance, idAdresse);
 
-		int idRace = 0;
-		idRace = Integer.valueOf(idRaceStr);
+		ClientDao clientdao = ClientDao.getInstance();
 
-		Chien nvChien = new Chien(null, numeroPuce, nom, couleur, dateNaissance, idRace);
+		nvClient = clientdao.save(nvClient);
+		// trouver compte
+		Compte compteConnecte = new Compte(null, email, password, "client", false, true, nvClient.getId());
 
-		ChienDao chienDao = ChienDao.getInstance();
+		CompteDao.getInstance().save(compteConnecte);
+		
+		System.out.println(compteConnecte);
 
-		nvChien = chienDao.save(nvChien);
+		
 
-		request.getRequestDispatcher("/liste_chien").forward(request, response);
+
+		
+
+		request.getRequestDispatcher("/page_login").forward(request, response);
 
 	}
 

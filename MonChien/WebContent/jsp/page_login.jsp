@@ -58,7 +58,7 @@
 		</form>
 		<br>
 		<h2>Pas encore de compte ?</h2>
-		<a href="" title="Enregistrement">Enregistrement</a>
+		<a href="<%=getServletContext().getContextPath()%>/enregistrement_client">Enregistrement</a>
 	</div>
 
 

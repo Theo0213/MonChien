@@ -3,6 +3,7 @@ package dao;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 
 import model.Client;
 import model.Compte;
@@ -21,6 +22,48 @@ public class CompteDao {
 
 	}
 
+	
+	public Compte save(Compte c) {
+
+		Integer id = null;
+
+		Statement statement;
+		try {
+			statement = ConnexionBdd.getConnection().createStatement();
+			ResultSet resultSet = statement.executeQuery("select nextval('compte_seq') as id");
+			while (resultSet.next()) {
+				id = resultSet.getInt("id");
+				break;
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+
+		c.setId(id);
+
+		// DateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
+		String requete = "INSERT INTO public.compte (id, email, mot_de_passe, poste, est_bloquee, est_active, id_client)" + "VALUES(?,?,?,?,?,?,?)";
+		PreparedStatement preparedStatement;
+		try {
+			preparedStatement = ConnexionBdd.getConnection().prepareStatement(requete);
+
+			preparedStatement.setInt(1, c.getId());
+			preparedStatement.setString(2, c.getEmail());
+			preparedStatement.setString(3, c.getPassword());
+			preparedStatement.setString(4, c.getRole());
+			preparedStatement.setBoolean(5, false);
+			preparedStatement.setBoolean(6, true);
+			preparedStatement.setInt(7, c.getId_client());
+
+			int nbreDeLignesAjour = preparedStatement.executeUpdate();
+			System.out.println(nbreDeLignesAjour + " ligne(s) ont été ajouter ");
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+
+		return c;
+	}
+	
 	public Compte login(String email, String password) {
 
 		PreparedStatement statement;
