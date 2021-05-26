@@ -1,3 +1,7 @@
+<%@page import="model.Adresse"%>
+<%@page import="dao.AdresseDao"%>
+<%@page import="dao.ClientDao"%>
+<%@page import="model.Client"%>
 <%@page import="dao.ChienDao"%>
 <%@page import="model.Chien"%>
 <%@page import="java.util.List"%>
@@ -5,7 +9,7 @@
 	pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html>
 <%
-	List<Chien> chiens = (List) request.getAttribute("chiens");
+	List<Client> clients = (List) request.getAttribute("clients");
 	String email = (String) request.getAttribute("email");
 %>
 <html>
@@ -13,7 +17,6 @@
 <meta charset="ISO-8859-1">
 
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
-
 
 <title>Liste de Chiens</title>
 </head>
@@ -24,7 +27,7 @@
 
 
 	<%
-		if (chiens != null && chiens.size() > 0) {
+		if (clients != null && clients.size() > 0) {
 	%>
 	
 	<div
@@ -33,45 +36,52 @@
 		</div>
 	
 	<p>Vous êtes connecté(e) avec l'adresse : <%=email %></p>
-	<div style="position: relative; padding-left: 90%">
-		<button>
-		<a href="<%=getServletContext().getContextPath()%>/page_login">Se deconnecter</a>
-		</button>
-	</div>
+
+<div>
+	
 	<table class="table table-striped">
 		<thead>
 			<tr>
 				<th>id</th>
-				<th>N° de Puce</th>
 				<th>Nom</th>
-				<th>Couleur</th>
+				<th>Prenom</th>
 				<th>Date de naissance</th>
-				<th>Race</th>
+				<th>Ligne 1</th>
+				<th>Ligne 2</th>
+				<th>Lieu</th>
+				<th>Code postal</th>
+				<th>Ville</th>
+				<th>Pays</th>
 			</tr>
 		</thead>
 		<tbody>
 			<%
-				for (Chien chien : chiens) {
+				for (Client client : clients) {
 			%>
 
 
 			<tr>
-				<td><a
-					href="<%=getServletContext().getContextPath()%>/details_chien?id_chien=<%=chien.getId()%>"><%=chien.getId()%></a></td>
-				<td><%=chien.getNumeroPuce()%></td>
-				<td><%=chien.getNom()%></td>
-				<td><%=chien.getCouleur()%></td>
-				<td><%=chien.getDateNaissance()%></td>
+				<td><%=client.getId()%></td>
+				<td><%=client.getNom()%></td>
+				<td><%=client.getPrenom()%></td>
+				<td><%=client.getDateNaissance()%></td>
+				<%int idAdresse = client.getAdresse();%>
+				<%Adresse adresse = AdresseDao.getInstance().getById(idAdresse);%>
+				<td><%=adresse.getLigne1()%></td>
+				<td><%=adresse.getLigne2()%></td>
+				<td><%=adresse.getLieu()%></td>
+				<td><%=adresse.getCodePostal()%></td>
+				<td><%=adresse.getVille()%></td>
+				<td><%=adresse.getPays()%></td>
 				
-				<td><%=ChienDao.getInstance().getDescriptionRace(chien)%></td>
-				<td><a
-					href="<%=getServletContext().getContextPath()%>/modifier_chien?id_chien=<%=chien.getId()%>">Editer</a></td>
 			</tr>
 			<%
 				}
 			%>
 		</tbody>
 	</table>
+
+</div>
 
 	<%
 		} else {
@@ -80,15 +90,12 @@
 	<%
 		}
 	%>
-	<a href="<%=getServletContext().getContextPath()%>/ajouter_chien">Créer
-		un chien</a>
+	<a href="<%=getServletContext().getContextPath()%>/enregistrement_conseiller_client">Nouvel utilisateur</a>
+
+
 	<br><br><br>
 	<div>
-		<a href="<%=getServletContext().getContextPath()%>/adoption_en_cours">Adoptions en Cours</a>
-	</div>	
-	<br><br><br>
-	<div>
-		<a href="<%=getServletContext().getContextPath()%>/liste_client">Liste Clients</a>
+		<a href="<%=getServletContext().getContextPath()%>/liste_chien">Retour</a>
 	</div>	
 	
 </body>

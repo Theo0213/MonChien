@@ -27,6 +27,21 @@ public class AdoptionDao {
 
 	}
 
+	
+	public void deleteByIdChien(Integer idChien) {
+
+		String requete = "delete from adoption a where a.id_chien=" + idChien;
+
+		Statement statement;
+		try {
+			statement = ConnexionBdd.getConnection().createStatement();
+			int nbreDeLignesAjour = statement.executeUpdate(requete);
+			System.out.println(nbreDeLignesAjour + " ligne(s) ont été supprimées ");
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
+	
 	public List<Adoption> getAll() {
 		List<Adoption> adoptions = new ArrayList<Adoption>();
 

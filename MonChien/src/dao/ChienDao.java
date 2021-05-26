@@ -104,6 +104,60 @@ public class ChienDao {
 		return chiens;
 
 	}
+	
+	public List<Chien> getAllEnCoursPerso(Integer id) {
+		List<Chien> chiens = new ArrayList<Chien>();
+
+		Statement statement;
+		try {
+			statement = ConnexionBdd.getConnection().createStatement();
+			ResultSet resultSet = statement.executeQuery(
+					"SELECT c.id,c.numero_puce,c.nom,c.couleur,c.date_naissance, c.id_race FROM chien c, adoption a where c.id = a.id_chien and a.id_etat_adoption=2 and a.id_client="+id);
+			while (resultSet.next()) {
+				int idChien = resultSet.getInt("id");
+				int numeroPuce = resultSet.getInt("numero_puce");
+				String nom = resultSet.getString("nom");
+				String couleur = resultSet.getString("couleur");
+				Date dateNaissance = resultSet.getDate("date_naissance");
+				int idRace = resultSet.getInt("id_race");
+
+				chiens.add(new Chien(idChien, numeroPuce, nom, couleur, dateNaissance, idRace));
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		return chiens;
+
+	}
+	
+	public List<Chien> getAllComfirmePerso(Integer id) {
+		List<Chien> chiens = new ArrayList<Chien>();
+
+		Statement statement;
+		try {
+			statement = ConnexionBdd.getConnection().createStatement();
+			ResultSet resultSet = statement.executeQuery(
+					"SELECT c.id,c.numero_puce,c.nom,c.couleur,c.date_naissance, c.id_race FROM chien c, adoption a where c.id = a.id_chien and a.id_etat_adoption=3 and a.id_client="+id);
+			while (resultSet.next()) {
+				int idChien = resultSet.getInt("id");
+				int numeroPuce = resultSet.getInt("numero_puce");
+				String nom = resultSet.getString("nom");
+				String couleur = resultSet.getString("couleur");
+				Date dateNaissance = resultSet.getDate("date_naissance");
+				int idRace = resultSet.getInt("id_race");
+
+				chiens.add(new Chien(idChien, numeroPuce, nom, couleur, dateNaissance, idRace));
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		return chiens;
+
+	}
 
 	public Chien getById(Integer id) {
 

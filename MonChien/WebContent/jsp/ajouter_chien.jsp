@@ -20,6 +20,7 @@
 </head>
 <body>
 	<h3>Ajouter un Chien</h3>
+	<a href="<%=getServletContext().getContextPath()%>/liste_client">Retour</a><br><br>
 	<form action="<%=getServletContext().getContextPath()%>/ajouter_chien"
 		method="post">
 

@@ -1,23 +1,27 @@
-package controller.chien;
+package controller.conseiller;
 
 import java.io.IOException;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import dao.ChienDao;
+import model.Chien;
+
 /**
- * Servlet implementation class PageErreur
+ * Servlet implementation class DetailsPersonne
  */
-@WebServlet("/page_erreur")
-public class PageErreur extends HttpServlet {
+@WebServlet("/details_chien")
+public class DetailsChien extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public PageErreur() {
+    public DetailsChien() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -26,8 +30,15 @@ public class PageErreur extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
-		request.getRequestDispatcher("/jsp/page_erreur.jsp").forward(request, response);
+		String idChienStr = request.getParameter("id_chien");
+		
+		int idChien = Integer.parseInt(idChienStr);
+		
+		Chien chien = ChienDao.getInstance().getById(idChien);
+		
+		request.setAttribute("chien", chien);
+		
+		request.getRequestDispatcher("/jsp/details_chien.jsp").forward(request, response);
 	}
 
 	/**

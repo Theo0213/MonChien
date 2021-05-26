@@ -1,4 +1,4 @@
-package controller.chien;
+package controller.client;
 
 import java.io.IOException;
 

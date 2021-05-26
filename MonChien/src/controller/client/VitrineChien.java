@@ -1,4 +1,4 @@
-package controller.chien;
+package controller.client;
 
 import java.io.IOException;
 import java.util.List;
@@ -19,14 +19,14 @@ import model.Chien;
 
 //http://localhost:8080/MonChien/liste_chien
 
-@WebServlet("/liste_chien")
-public class ListeChien extends HttpServlet {
+@WebServlet("/vitrine_chien")
+public class VitrineChien extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	/**
 	 * @see HttpServlet#HttpServlet()
 	 */
-	public ListeChien() {
+	public VitrineChien() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
@@ -37,20 +37,20 @@ public class ListeChien extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		List<Chien> chiens = ChienDao.getInstance().getAll();
+		List<Chien> chiens = ChienDao.getInstance().getAllDisponible();
 		request.setAttribute("chiens", chiens);
-
+		@SuppressWarnings("deprecation")
 		String email = (String) request.getSession().getValue("email");
-
+		@SuppressWarnings("deprecation")
 		String password = (String) request.getSession().getValue("mot_de_passe");
 		request.setAttribute("email", email);
-		CompteDao compteInstance = CompteDao.getInstance();
 		
-		if(compteInstance.login(email, password)!=null && compteInstance.login(email, password).getRole().equals("conseiller")) {
-			request.getRequestDispatcher("/jsp/liste_chien.jsp").forward(request, response);
+		if(CompteDao.getInstance().login(email, password)!=null && CompteDao.getInstance().login(email, password).getRole().equals("client")) {
+			request.getRequestDispatcher("/jsp/vitrine_chien.jsp").forward(request, response);
 		}else {
 			request.getRequestDispatcher("/jsp/page_erreur.jsp").forward(request, response);
 		}
+		
 		
 
 	}

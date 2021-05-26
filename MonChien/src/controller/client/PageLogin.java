@@ -1,4 +1,4 @@
-package controller.chien;
+package controller.client;
 
 import java.io.IOException;
 
@@ -58,9 +58,6 @@ public class PageLogin extends HttpServlet {
 		session.setAttribute("email", email);
 		session.setAttribute("mot_de_passe", password);
 		
-		//debug
-		System.out.println("mail : " + session.getAttribute("email"));
-		System.out.println("mdp : " + session.getAttribute("mot_de_passe"));
 
 		// trouver role
 		try {

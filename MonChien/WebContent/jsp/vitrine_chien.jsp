@@ -15,9 +15,18 @@
 <html>
 <head>
 <meta charset="ISO-8859-1">
+
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+
+
 <title>Liste de Chiens</title>
 </head>
 <body>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+
+
 	<%
 		if (chiens != null && chiens.size() > 0) {
 	%>
@@ -27,10 +36,13 @@
 		</div>
 	<p>Vous êtes connecté(e) avec l'adresse : <%=email %></p>
 	
+	<div style="position: relative; padding-left: 90%">
+		<button>
+		<a href="<%=getServletContext().getContextPath()%>/page_login">Se deconnecter</a>
+		</button>
+	</div>
 	
-
-	
-	<table>
+	<table class="table table-striped">
 		<thead>
 			<tr>
 				<th>id</th>
@@ -73,7 +85,14 @@
 		}
 	%>
 	
-	<a href="<%=getServletContext().getContextPath()%>/page_login">Retour</a>
-
+	
+	<br>
+	<a href="<%=getServletContext().getContextPath()%>/adoptions_client">Mes adoptions en cours</a>
+	<br>
+	<br><br>
+	<br>
+	<a href="<%=getServletContext().getContextPath()%>/adoptions_client_comfirme">Mes adoptions comfirmé</a>
+	
+	
 </body>
 </html>

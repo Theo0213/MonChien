@@ -14,7 +14,7 @@ public class ConnexionBdd {
 				try {
 					Class.forName("org.postgresql.Driver");
 					connection = DriverManager.getConnection("jdbc:postgresql://localhost:5432/cda_21013", "postgres", "root");
-					System.out.println("Connected to PostgreSQL database!");
+					System.out.println("Connecté à la base de données cda_21013");
 				} catch (ClassNotFoundException e) {
 					e.printStackTrace();
 				}

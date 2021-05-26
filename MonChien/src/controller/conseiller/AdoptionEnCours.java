@@ -1,4 +1,4 @@
-package controller.chien;
+package controller.conseiller;
 
 import java.io.IOException;
 import java.util.List;

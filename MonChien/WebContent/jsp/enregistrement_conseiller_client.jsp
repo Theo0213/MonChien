@@ -21,16 +21,15 @@
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
-	
-<h3 style="margin-top: 5%; margin-bottom: 0%; margin-left: 25%; margin-right: 20%; background-color: #F8F8F8">Veuillez renseignez les informations du nouvel utilisateur</h3><br>
-	
+
+
+<h3 style="margin-top: 5%; margin-bottom: 0%; margin-left: 25%; margin-right: 20%; background-color: #F8F8F8">Veuillez renseignez les informations du nouvel utilisateur</h3><br>		
+
 <div style="margin-top: 0%; margin-bottom: 0%; margin-left: 35%; margin-right: 35%; background-color: #e0e0e0">	
+<a href="<%=getServletContext().getContextPath()%>/liste_client">Retour</a>
 
 
-
-	
-	<a href="<%=getServletContext().getContextPath()%>/page_login">Retour</a><br>
-		<form action="<%=getServletContext().getContextPath()%>/enregistrement_client"
+		<form action="<%=getServletContext().getContextPath()%>/enregistrement_conseiller_client"
 			method="post">
 		
 			<label>Nom : </label>
@@ -39,6 +38,16 @@
 			<input type="text" name="prenom" placeholder="Prenom"><br> 
 			<label>Date de naissance : </label>
 			<input type="date" name="date_naissance"><br> 
+			
+			<label>Role : </label>
+			<select name="role" required>
+				<option value="" selected disabled>Choix role</option>
+				<option value="client">Client</option>
+				<option value="conseiller">Conseiller</option>
+
+       		</select><br> 
+			
+			
 			<label>Numero de téléphone 1 : </label>
 			<input type="text" name="ligne1" placeholder="Ligne 1"><br>
 			<label>Numero de téléphone 2 : </label>

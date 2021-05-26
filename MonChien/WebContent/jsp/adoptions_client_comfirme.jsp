@@ -3,6 +3,10 @@
 <%@page import="java.util.List"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
+	
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="toto"%>
+	
 <!DOCTYPE html>
 <%
 	List<Chien> chiens = (List) request.getAttribute("chiens");
@@ -26,18 +30,15 @@
 	<%
 		if (chiens != null && chiens.size() > 0) {
 	%>
-	
-	<div
+		<div
 			style="color: #F6F6F6; font-size: 48px; background-color: #696969; padding-top: 1px; padding-left: 30px; padding-bottom: 1px">
-			<p>Espace Conseiller</p>
+			<p>Adoption(s) confirmée(s)</p>
 		</div>
-	
 	<p>Vous êtes connecté(e) avec l'adresse : <%=email %></p>
-	<div style="position: relative; padding-left: 90%">
-		<button>
-		<a href="<%=getServletContext().getContextPath()%>/page_login">Se deconnecter</a>
-		</button>
-	</div>
+	
+	
+
+	
 	<table class="table table-striped">
 		<thead>
 			<tr>
@@ -56,20 +57,19 @@
 
 
 			<tr>
-				<td><a
-					href="<%=getServletContext().getContextPath()%>/details_chien?id_chien=<%=chien.getId()%>"><%=chien.getId()%></a></td>
+				<td><%=chien.getId()%></td>
 				<td><%=chien.getNumeroPuce()%></td>
 				<td><%=chien.getNom()%></td>
 				<td><%=chien.getCouleur()%></td>
 				<td><%=chien.getDateNaissance()%></td>
-				
 				<td><%=ChienDao.getInstance().getDescriptionRace(chien)%></td>
-				<td><a
-					href="<%=getServletContext().getContextPath()%>/modifier_chien?id_chien=<%=chien.getId()%>">Editer</a></td>
+
+
 			</tr>
 			<%
 				}
 			%>
+			
 		</tbody>
 	</table>
 
@@ -80,16 +80,10 @@
 	<%
 		}
 	%>
-	<a href="<%=getServletContext().getContextPath()%>/ajouter_chien">Créer
-		un chien</a>
-	<br><br><br>
-	<div>
-		<a href="<%=getServletContext().getContextPath()%>/adoption_en_cours">Adoptions en Cours</a>
-	</div>	
-	<br><br><br>
-	<div>
-		<a href="<%=getServletContext().getContextPath()%>/liste_client">Liste Clients</a>
-	</div>	
 	
+	<a href="<%=getServletContext().getContextPath()%>/vitrine_chien">Retour</a>
+	
+
+
 </body>
 </html>

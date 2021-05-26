@@ -25,6 +25,7 @@
 </head>
 <body>
 	<h3>Editer Chien</h3>
+	<a href="<%=getServletContext().getContextPath()%>/liste_client">Retour</a><br><br>
 	<form action="<%=getServletContext().getContextPath()%>/modifier_chien?id_chien=<%=chien.getId()%>"
 		method="post">
 
