@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import javax.xml.ws.handler.MessageContext.Scope;
 
 import dao.CompteDao;
 import model.Compte;
@@ -38,6 +39,8 @@ public class PageLogin extends HttpServlet {
 			throws ServletException, IOException {
 
 		request.getRequestDispatcher("/jsp/page_login.jsp").forward(request, response);
+		Boolean essai= false;
+		request.setAttribute("essai", essai);
 	}
 
 	/**
@@ -46,17 +49,22 @@ public class PageLogin extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-
+		Boolean essai= false;
 		String email = request.getParameter("email");
 		String password = request.getParameter("mot_de_passe");
 		// trouver compte
 		Compte compteConnecte = new Compte();
 		compteConnecte = CompteDao.getInstance().login(email, password);
-
+		if (compteConnecte==null) {
+			essai=true;
+		}
+		
 		
 		HttpSession session = request.getSession();
 		session.setAttribute("email", email);
 		session.setAttribute("mot_de_passe", password);
+		request.setAttribute("essai", essai);
+		System.out.println(essai);
 		
 
 		// trouver role

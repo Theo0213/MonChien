@@ -5,13 +5,9 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 import model.Adoption;
-import model.Chien;
-import model.Client;
-
 
 public class AdoptionDao {
 
@@ -27,7 +23,6 @@ public class AdoptionDao {
 
 	}
 
-	
 	public void deleteByIdChien(Integer idChien) {
 
 		String requete = "delete from adoption a where a.id_chien=" + idChien;
@@ -41,14 +36,15 @@ public class AdoptionDao {
 			e.printStackTrace();
 		}
 	}
-	
+
 	public List<Adoption> getAll() {
 		List<Adoption> adoptions = new ArrayList<Adoption>();
 
 		Statement statement;
 		try {
 			statement = ConnexionBdd.getConnection().createStatement();
-			ResultSet resultSet = statement.executeQuery("select id, date_adoption, id_client, id_chien, id_etat_adoption from adoption");
+			ResultSet resultSet = statement
+					.executeQuery("select id, date_adoption, id_client, id_chien, id_etat_adoption from adoption");
 			while (resultSet.next()) {
 				int id = resultSet.getInt("id");
 				java.sql.Date dateAdoption = resultSet.getDate("date_adoption");
@@ -56,8 +52,7 @@ public class AdoptionDao {
 				int idChien = resultSet.getInt("id_chien");
 				int idEtatAdoption = resultSet.getInt("id_etat_adoption");
 
-				
-				adoptions.add(new Adoption(id, dateAdoption,idClient,idChien,idEtatAdoption));
+				adoptions.add(new Adoption(id, dateAdoption, idClient, idChien, idEtatAdoption));
 			}
 		} catch (SQLException e) {
 
@@ -67,14 +62,15 @@ public class AdoptionDao {
 		return adoptions;
 
 	}
-	
+
 	public List<Adoption> getEnCours() {
 		List<Adoption> adoptions = new ArrayList<Adoption>();
 
 		Statement statement;
 		try {
 			statement = ConnexionBdd.getConnection().createStatement();
-			ResultSet resultSet = statement.executeQuery("select id, date_adoption, id_client, id_chien, id_etat_adoption from adoption where id_etat_adoption=2");
+			ResultSet resultSet = statement.executeQuery(
+					"select id, date_adoption, id_client, id_chien, id_etat_adoption from adoption where id_etat_adoption=2");
 			while (resultSet.next()) {
 				int id = resultSet.getInt("id");
 				java.sql.Date dateAdoption = resultSet.getDate("date_adoption");
@@ -82,8 +78,7 @@ public class AdoptionDao {
 				int idChien = resultSet.getInt("id_chien");
 				int idEtatAdoption = resultSet.getInt("id_etat_adoption");
 
-				
-				adoptions.add(new Adoption(id, dateAdoption,idClient,idChien,idEtatAdoption));
+				adoptions.add(new Adoption(id, dateAdoption, idClient, idChien, idEtatAdoption));
 			}
 		} catch (SQLException e) {
 
@@ -93,14 +88,15 @@ public class AdoptionDao {
 		return adoptions;
 
 	}
-	
+
 	public List<Adoption> getDisponible() {
 		List<Adoption> adoptions = new ArrayList<Adoption>();
 
 		Statement statement;
 		try {
 			statement = ConnexionBdd.getConnection().createStatement();
-			ResultSet resultSet = statement.executeQuery("select id, date_adoption, id_client, id_chien, id_etat_adoption from adoption where id_etat_adoption=1");
+			ResultSet resultSet = statement.executeQuery(
+					"select id, date_adoption, id_client, id_chien, id_etat_adoption from adoption where id_etat_adoption=1");
 			while (resultSet.next()) {
 				int id = resultSet.getInt("id");
 				java.sql.Date dateAdoption = resultSet.getDate("date_adoption");
@@ -108,8 +104,7 @@ public class AdoptionDao {
 				int idChien = resultSet.getInt("id_chien");
 				int idEtatAdoption = resultSet.getInt("id_etat_adoption");
 
-				
-				adoptions.add(new Adoption(id, dateAdoption,idClient,idChien,idEtatAdoption));
+				adoptions.add(new Adoption(id, dateAdoption, idClient, idChien, idEtatAdoption));
 			}
 		} catch (SQLException e) {
 
@@ -119,7 +114,7 @@ public class AdoptionDao {
 		return adoptions;
 
 	}
-	
+
 	@SuppressWarnings("null")
 	public Adoption save(Adoption adoption) {
 
@@ -161,23 +156,22 @@ public class AdoptionDao {
 		}
 		return adoption;
 	}
-	
-	public void ComfirmerAdoption(Integer idChien, Integer idClient)  {
+
+	public void ComfirmerAdoption(Integer idChien, Integer idClient) {
 		String requete = "update adoption set id_etat_adoption =3 where id_chien = ? and id_client = ?";
 
 		PreparedStatement statement;
 		try {
 			statement = ConnexionBdd.getConnection().prepareStatement(requete);
-			
+
 			statement.setInt(1, idChien);
 			statement.setInt(2, idClient);
-			
+
 			int nbreDeLignesAjour = statement.executeUpdate();
 			System.out.println(nbreDeLignesAjour + " ligne(s) ont été Maj ");
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 	}
-	
 
 }

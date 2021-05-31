@@ -4,6 +4,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <%
+	Boolean essai = (Boolean) request.getAttribute("essai");
 	Integer i = request.getAttribute("choix_nombre") != null ? (Integer) request.getAttribute("choix_nombre") : null;
 %>
 
@@ -56,6 +57,9 @@
 			<br> <input type="submit" value="Se connecter">
 
 		</form>
+		<c:if test="${essai==true}">
+		<p style="color: #D77474; font-size: 24px; text-align: center">Login ou mot de passe incorrect</p>
+		</c:if>
 		<br>
 		<h2>Pas encore de compte ?</h2>
 		<a href="<%=getServletContext().getContextPath()%>/enregistrement_client">Enregistrement</a>
